@@ -12,10 +12,8 @@ import java.util.List;
 public class Wishlist {
 
     private String id;
-
     private User owner;
     private List<User> subscribers;
-
     private List<Wish> wishes;
 
 }
