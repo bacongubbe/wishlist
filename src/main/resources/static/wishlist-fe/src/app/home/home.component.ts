@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -8,6 +8,11 @@ import { CommonModule } from '@angular/common';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
+
 export class HomeComponent {
+
+  doThing() : void {
+    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+  }
 
 }
