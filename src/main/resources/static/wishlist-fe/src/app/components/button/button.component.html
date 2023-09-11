@@ -1,1 +1,12 @@
 <p><ng-content /></p>
+<button (click)="slamdunk()" >
+    Unlock the field!
+</button>
+
+<p *ngIf="editable; else muted">This is editable or whatever</p>
+
+<ng-template #muted>
+    <p>Nope! This is no edit here friendo.</p>
+</ng-template>
+
+<p [contentEditable]="editable">{{ message }}</p>

@@ -1,5 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FetcherService } from '../services/fetcher.service';
+import { Joke } from '../interfaces/joke';
 
 @Component({
   selector: 'app-home',
@@ -11,8 +13,16 @@ import { CommonModule } from '@angular/common';
 
 export class HomeComponent {
 
-  doThing() : void {
-    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+  joke : Joke = {text : ''}
+
+  constructor(private fetcher : FetcherService){}
+
+  updateJoke(event : Event) : void {
+    event.preventDefault();
+    this.fetcher.getJoke()
+    .then(res => {
+      this.joke = res;
+    }).catch(console.error)
   }
 
 }
