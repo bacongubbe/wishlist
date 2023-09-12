@@ -8,4 +8,5 @@
     <br />
 </form>
 <p>{{ joke.text }}</p>
+<p>{{ (joke$ | async)?.text }}</p>
 <button (click)="updateJoke($event)" >Boring! Gimme something new</button>

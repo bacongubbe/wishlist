@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FetcherService } from '../services/fetcher.service';
 import { Joke } from '../interfaces/joke';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -14,6 +15,7 @@ import { Joke } from '../interfaces/joke';
 export class HomeComponent {
 
   joke : Joke = {text : ''}
+  joke$! : Observable<Joke>;
 
   constructor(private fetcher : FetcherService){}
 
@@ -22,7 +24,9 @@ export class HomeComponent {
     this.fetcher.getJoke()
     .then(res => {
       this.joke = res;
-    }).catch(console.error)
+    }).catch(console.error);
+
+    this.joke$ = this.fetcher.getJokeObs();
   }
 
 }
