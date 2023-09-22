@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.naming.AuthenticationNotSupportedException;
 import java.security.Principal;
 
 @RestController
@@ -20,11 +21,10 @@ import java.security.Principal;
 public class StatusController {
 
     @GetMapping
-    public ResponseEntity<String> getStatus(Jwt user) {
-        System.out.println("THIS IS THE NAME " + user.getHeaders());
+    public ResponseEntity<String> getStatus(@AuthenticationPrincipal Jwt user) {
         if (user == null) {
             return ResponseEntity.ok("Hello");
         }
-        return ResponseEntity.ok("Hello " + user);
+        return ResponseEntity.ok("Hello " + user.getClaims().get("name"));
     }
 }
