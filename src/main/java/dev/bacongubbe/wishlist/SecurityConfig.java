@@ -11,7 +11,9 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 
 import javax.crypto.SecretKey;
@@ -21,8 +23,12 @@ import javax.crypto.spec.SecretKeySpec;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Autowired
     OAuth2LoginSuccessHandler handler;
+
+    @Autowired
+    public SecurityConfig(OAuth2LoginSuccessHandler handler){
+        this.handler = handler;
+    }
 
     @Bean
     public DefaultSecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -37,14 +43,5 @@ public class SecurityConfig {
             .oauth2Login(oauth -> oauth.successHandler(handler))
             .build();
     }
-
-    @Bean
-    JwtDecoder jwtDecoder() {
-        return NimbusJwtDecoder
-            .withSecretKey(new SecretKeySpec("super_secret_mega_cool_super_duper_key_of_actual_dooooooom_holy_shit".getBytes(), "RSA"))
-            .macAlgorithm(MacAlgorithm.HS256)
-            .build();
-    }
-
 
 }

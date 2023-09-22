@@ -13,11 +13,6 @@ public class WishlistApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(WishlistApplication.class, args);
 	}
-
-    @Bean
-    JwtEncoder jwtEncoder() {
-        return new NimbusJwtEncoder(new ImmutableSecret<>("super_secret_mega_cool_super_duper_key_of_actual_dooooooom_holy_shit".getBytes()));
-    }
 }
 
 
