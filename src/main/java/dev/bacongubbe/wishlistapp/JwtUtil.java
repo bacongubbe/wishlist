@@ -1,4 +1,4 @@
-package dev.bacongubbe.wishlist;
+package dev.bacongubbe.wishlistapp;
 
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
 import org.springframework.context.annotation.Bean;

@@ -1,4 +1,4 @@
-package dev.bacongubbe.wishlist;
+package dev.bacongubbe.wishlistapp;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package dev.bacongubbe.wishlist;
+package dev.bacongubbe.wishlistapp;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

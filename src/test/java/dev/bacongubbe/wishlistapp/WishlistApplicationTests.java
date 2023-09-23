@@ -1,4 +1,4 @@
-package dev.bacongubbe.wishlist;
+package dev.bacongubbe.wishlistapp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
