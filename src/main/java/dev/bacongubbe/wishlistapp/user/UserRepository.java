@@ -17,4 +17,8 @@ public class UserRepository {
     public User getUser(String id) {
         return dao.findById(id).orElseThrow(() -> new NoSuchElementException("No user with id %s".formatted(id)));
     }
+
+    public User createUser(User user){
+        return dao.save(user);
+    }
 }

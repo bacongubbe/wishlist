@@ -1,7 +1,5 @@
 package dev.bacongubbe.wishlistapp.user;
 
-import com.nimbusds.openid.connect.sdk.UserInfoResponse;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,5 +13,9 @@ public class UserService {
 
     public User getUser(String id) {
         return repo.getUser(id);
+    }
+
+    public User createUser(User user){
+        return repo.createUser(user);
     }
 }

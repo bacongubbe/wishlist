@@ -28,6 +28,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> {
                 auth.requestMatchers("/").permitAll();
                 auth.requestMatchers("/api/wishlists").authenticated();
+                auth.requestMatchers("/api/users").authenticated();
             })
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .oauth2ResourceServer(auth -> auth.jwt(Customizer.withDefaults()))
