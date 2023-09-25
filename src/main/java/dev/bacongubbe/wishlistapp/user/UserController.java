@@ -24,11 +24,8 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createUser(
-        @AuthenticationPrincipal Jwt jwt,
-        @RequestBody CreateUserDto newUser
-    ) {
-        User created = service.createUser(new User(jwt.getSubject(), newUser.name(),newUser.email()));
+    public ResponseEntity<Void> createUser(@AuthenticationPrincipal Jwt jwt) {
+        User created = service.createUser(new User(jwt.getSubject(), jwt.getClaim("name"), jwt.getClaim("email")));
         return ResponseEntity.created(URI.create(created.getId())).build();
     }
 

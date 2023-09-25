@@ -1,6 +1,5 @@
 package dev.bacongubbe.wishlistapp.user;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.NoSuchElementException;
