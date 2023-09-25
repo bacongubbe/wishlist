@@ -1,4 +1,4 @@
-package dev.bacongubbe.wishlistapp;
+package dev.bacongubbe.wishlistapp.wishlist;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
