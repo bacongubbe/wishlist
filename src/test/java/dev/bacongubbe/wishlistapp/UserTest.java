@@ -1,5 +1,6 @@
 package dev.bacongubbe.wishlistapp;
 
+import dev.bacongubbe.wishlistapp.user.User;
 import org.junit.jupiter.api.Test;
 
 class UserTest {
