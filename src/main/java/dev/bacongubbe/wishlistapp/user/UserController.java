@@ -11,7 +11,6 @@ import java.net.URI;
 @RequestMapping("/api/users")
 public class UserController {
 
-
     private final UserService service;
 
     public UserController(UserService service) {
