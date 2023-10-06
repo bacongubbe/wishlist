@@ -1,6 +1,5 @@
 package dev.bacongubbe.wishlistapp.security;
 
-import dev.bacongubbe.wishlistapp.security.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;

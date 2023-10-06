@@ -18,6 +18,8 @@ public class Wishlist {
     @Id
     private String id;
 
+    private String name;
+
     @ManyToOne
     private User owner;
 

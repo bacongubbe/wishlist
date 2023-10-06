@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.crypto.spec.SecretKeySpec;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import static java.time.Instant.*;
 
 @Service
 public class JwtUtil {
@@ -17,7 +18,7 @@ public class JwtUtil {
     private final JwtEncoder encoder = jwtEncoder();
 
     public String generateToken(OAuth2User user) {
-        Instant now = Instant.now();
+        Instant now = now();
         JwtClaimsSet claims = JwtClaimsSet.builder()
             .issuer("self")
             .issuedAt(now)

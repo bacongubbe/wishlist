@@ -14,7 +14,7 @@ import org.springframework.security.web.DefaultSecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    OAuth2LoginSuccessHandler handler;
+    private final OAuth2LoginSuccessHandler handler;
 
     @Autowired
     public SecurityConfig(OAuth2LoginSuccessHandler handler){

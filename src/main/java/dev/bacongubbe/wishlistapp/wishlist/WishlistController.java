@@ -1,10 +1,9 @@
 package dev.bacongubbe.wishlistapp.wishlist;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 
@@ -12,8 +11,18 @@ import java.util.Collections;
 @RestController
 @CrossOrigin(origins = "*")
 public class WishlistController {
+
+
     @GetMapping
     public ResponseEntity<WishlistListDto> getAll() {
         return ResponseEntity.ok(new WishlistListDto(Collections.emptyList()));
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> createNewWishlist(@AuthenticationPrincipal Jwt jwt,@RequestBody String name) {
+
+
+
+        return null;
     }
 }
