@@ -10,7 +10,8 @@ public class WishlistRepo {
     public WishlistRepo(WishlistDao repo) {
         this.repo = repo;
     }
-    
 
-
+    public Wishlist createWishlist(Wishlist wishlist) {
+        return repo.save(wishlist);
+    }
 }

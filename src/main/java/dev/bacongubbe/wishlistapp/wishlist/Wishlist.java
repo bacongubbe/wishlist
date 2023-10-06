@@ -16,6 +16,7 @@ import java.util.List;
 public class Wishlist {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     private String name;
@@ -29,4 +30,11 @@ public class Wishlist {
     @OneToMany
     private List<Wish> wishes;
 
+    public Wishlist(String name, User owner) {
+        this.name = name;
+        this.owner = owner;
+    }
+
+    protected Wishlist() {
+    }
 }
