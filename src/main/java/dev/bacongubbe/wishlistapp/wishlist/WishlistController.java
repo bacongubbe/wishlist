@@ -2,6 +2,8 @@ package dev.bacongubbe.wishlistapp.wishlist;
 
 import dev.bacongubbe.wishlistapp.user.User;
 import dev.bacongubbe.wishlistapp.user.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,6 +19,8 @@ import java.util.NoSuchElementException;
 @CrossOrigin(origins = "*")
 public class WishlistController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(WishlistController.class);
+
     private final WishlistService service;
     private final UserService userService;
 
@@ -26,7 +30,7 @@ public class WishlistController {
     }
 
     @GetMapping
-    public ResponseEntity<WishlistListDto> getAll() {
+    public ResponseEntity<WishlistListDto> getAllForUser() {
         return ResponseEntity.ok(new WishlistListDto(Collections.emptyList()));
     }
 
@@ -40,6 +44,7 @@ public class WishlistController {
 
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<Void> handleNoSuchElementException(NoSuchElementException e) {
+        LOGGER.error(e.getMessage(), e);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).header("Location", "/login").build();
     }
 }
