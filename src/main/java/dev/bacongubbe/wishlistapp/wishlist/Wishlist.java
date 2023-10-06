@@ -1,6 +1,6 @@
 package dev.bacongubbe.wishlistapp.wishlist;
 
-import dev.bacongubbe.wishlistapp.Wish;
+import dev.bacongubbe.wishlistapp.wish.Wish;
 import dev.bacongubbe.wishlistapp.user.User;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;

@@ -1,4 +1,4 @@
-package dev.bacongubbe.wishlistapp;
+package dev.bacongubbe.wishlistapp.wish;
 
 import dev.bacongubbe.wishlistapp.user.User;
 import jakarta.persistence.*;
