@@ -19,4 +19,8 @@ public class WishlistService {
     public WishlistListDto getWishlistsForUser(User owner) {
         return repo.getWishlistsForUser(owner);
     }
+
+    public Wishlist getWishlistForOwner(User owner, String WishlistId) {
+        return repo.getWishlistForOwner(owner, WishlistId);
+    }
 }

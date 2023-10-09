@@ -30,9 +30,15 @@ public class WishlistController {
     }
 
     @GetMapping
-    public ResponseEntity<WishlistListDto> getAllForUser(@AuthenticationPrincipal Jwt jwt) {
+    public ResponseEntity<WishlistListDto> getAllForOwner(@AuthenticationPrincipal Jwt jwt) {
         User owner = userService.getUser(jwt.getSubject());
         return ResponseEntity.ok(service.getWishlistsForUser(owner));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<OwnerWishlistDto> getWishlist(@AuthenticationPrincipal Jwt jwt, @PathVariable String id) {
+        User owner = userService.getUser(jwt.getSubject());
+        return ResponseEntity.ok(new OwnerWishlistDto(service.getWishlistForOwner(owner, id)));
     }
 
     @PostMapping
