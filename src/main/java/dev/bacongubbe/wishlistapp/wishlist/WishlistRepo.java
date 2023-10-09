@@ -14,7 +14,7 @@ public class WishlistRepo {
         this.repo = repo;
     }
 
-    public Wishlist createWishlist(Wishlist wishlist) {
+    public Wishlist saveWishlist(Wishlist wishlist) {
         return repo.save(wishlist);
     }
 

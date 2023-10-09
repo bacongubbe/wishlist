@@ -1,6 +1,7 @@
 package dev.bacongubbe.wishlistapp.wishlist;
 
 import dev.bacongubbe.wishlistapp.user.User;
+import dev.bacongubbe.wishlistapp.wish.Wish;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,7 +14,7 @@ public class WishlistService {
     }
 
     public Wishlist createWishlist(Wishlist wishlist) {
-        return repo.createWishlist(wishlist);
+        return repo.saveWishlist(wishlist);
     }
 
     public WishlistListDto getWishlistsForUser(User owner) {

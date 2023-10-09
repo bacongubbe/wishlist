@@ -27,7 +27,7 @@ public class Wishlist {
     @ManyToMany
     private List<User> subscribers;
 
-    @OneToMany
+    @OneToMany(mappedBy = "wishlist")
     private List<Wish> wishes;
 
     public Wishlist(String name, User owner) {
