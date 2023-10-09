@@ -3,6 +3,7 @@ package dev.bacongubbe.wishlistapp.wishlist;
 import dev.bacongubbe.wishlistapp.user.User;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Repository
@@ -18,9 +19,9 @@ public class WishlistRepo {
         return repo.save(wishlist);
     }
 
-    public WishlistListDto getWishlistsForUser(User owner) {
-        return new WishlistListDto(repo.findByOwner(owner));
-    } // TODO: Make sure this is not a DTO
+    public List<Wishlist> getWishlistsForUser(User owner) {
+        return repo.findByOwner(owner);
+    }
 
     public Wishlist getWishlistForOwner(User owner, String wishlistId) {
         return repo.findByOwnerAndId(owner, wishlistId)
