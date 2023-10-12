@@ -2,8 +2,6 @@ package dev.bacongubbe.wishlistapp.wishlist;
 
 import dev.bacongubbe.wishlistapp.user.User;
 import dev.bacongubbe.wishlistapp.user.UserService;
-import dev.bacongubbe.wishlistapp.wish.CreateWishDto;
-import dev.bacongubbe.wishlistapp.wish.Wish;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,9 +12,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.Collections;
 import java.util.NoSuchElementException;
-import java.util.UUID;
 
 @RequestMapping("/api/wishlists")
 @RestController
@@ -48,14 +44,14 @@ public class WishlistController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createNewWishlist(@AuthenticationPrincipal Jwt jwt, @RequestBody CreateWishlistDto dto) {
+    public ResponseEntity<Void> createNewWishlist(@AuthenticationPrincipal Jwt jwt, @RequestBody @Valid CreateWishlistDto dto) {
         User owner = userService.getUser(jwt.getSubject());
         var created = service.createWishlist(new Wishlist(dto.name(), owner));
         return ResponseEntity.created(URI.create("/api/wishlists/%s".formatted(created.getId()))).build();
     }
 
     @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<Void> handleNoSuchElementException(NoSuchElementException e) {
+    private ResponseEntity<Void> handleNoSuchElementException(NoSuchElementException e) {
         LOGGER.error(e.getMessage(), e);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).header("Location", "/login").build();
     }
