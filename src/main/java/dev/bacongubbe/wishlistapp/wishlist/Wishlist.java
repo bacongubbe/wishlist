@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Collections;
 import java.util.List;
 
 @EqualsAndHashCode
@@ -33,6 +34,8 @@ public class Wishlist {
     public Wishlist(String name, User owner) {
         this.name = name;
         this.owner = owner;
+        this.subscribers = Collections.emptyList();
+        this.wishes = Collections.emptyList();
     }
 
     protected Wishlist() {

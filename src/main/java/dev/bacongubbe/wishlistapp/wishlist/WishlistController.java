@@ -16,7 +16,6 @@ import java.util.NoSuchElementException;
 
 @RequestMapping("/api/wishlists")
 @RestController
-@CrossOrigin(origins = "*")
 public class WishlistController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WishlistController.class);
@@ -44,10 +43,10 @@ public class WishlistController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createNewWishlist(@AuthenticationPrincipal Jwt jwt, @RequestBody @Valid CreateWishlistDto dto) {
+    public ResponseEntity<WishlistSummaryDto> createNewWishlist(@AuthenticationPrincipal Jwt jwt, @RequestBody @Valid CreateWishlistDto dto) {
         User owner = userService.getUser(jwt.getSubject());
         var created = service.createWishlist(new Wishlist(dto.name(), owner));
-        return ResponseEntity.created(URI.create("/api/wishlists/%s".formatted(created.getId()))).build();
+        return ResponseEntity.created(URI.create("/api/wishlists/%s".formatted(created.getId()))).body(new WishlistSummaryDto(created));
     }
 
     @ExceptionHandler(NoSuchElementException.class)
