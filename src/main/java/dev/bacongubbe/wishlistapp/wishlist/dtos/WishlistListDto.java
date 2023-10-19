@@ -1,4 +1,4 @@
-package dev.bacongubbe.wishlistapp.wishlist;
+package dev.bacongubbe.wishlistapp.wishlist.dtos;
 
 import java.util.List;
 

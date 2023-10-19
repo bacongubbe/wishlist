@@ -1,4 +1,4 @@
-package dev.bacongubbe.wishlistapp.wishlist;
+package dev.bacongubbe.wishlistapp.wishlist.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

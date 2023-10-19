@@ -1,4 +1,6 @@
-package dev.bacongubbe.wishlistapp.wishlist;
+package dev.bacongubbe.wishlistapp.wishlist.dtos;
+
+import dev.bacongubbe.wishlistapp.wishlist.Wishlist;
 
 public record WishlistSummaryDto(
     String id,

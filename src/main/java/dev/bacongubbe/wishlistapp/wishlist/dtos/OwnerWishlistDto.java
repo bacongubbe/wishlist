@@ -1,7 +1,8 @@
-package dev.bacongubbe.wishlistapp.wishlist;
+package dev.bacongubbe.wishlistapp.wishlist.dtos;
 
 import dev.bacongubbe.wishlistapp.user.User;
-import dev.bacongubbe.wishlistapp.wish.OwnerWishDto;
+import dev.bacongubbe.wishlistapp.wish.dtos.OwnerWishDto;
+import dev.bacongubbe.wishlistapp.wishlist.Wishlist;
 
 import java.util.List;
 

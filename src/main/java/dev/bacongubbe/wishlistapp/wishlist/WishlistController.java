@@ -2,6 +2,10 @@ package dev.bacongubbe.wishlistapp.wishlist;
 
 import dev.bacongubbe.wishlistapp.user.User;
 import dev.bacongubbe.wishlistapp.user.UserService;
+import dev.bacongubbe.wishlistapp.wishlist.dtos.CreateWishlistDto;
+import dev.bacongubbe.wishlistapp.wishlist.dtos.OwnerWishlistDto;
+import dev.bacongubbe.wishlistapp.wishlist.dtos.WishlistListDto;
+import dev.bacongubbe.wishlistapp.wishlist.dtos.WishlistSummaryDto;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,6 @@
-package dev.bacongubbe.wishlistapp.wish;
+package dev.bacongubbe.wishlistapp.wish.dtos;
+
+import dev.bacongubbe.wishlistapp.wish.Wish;
 
 public record OwnerWishDto(
     String id,
