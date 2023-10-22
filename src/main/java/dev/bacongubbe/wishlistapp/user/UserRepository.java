@@ -20,4 +20,8 @@ public class UserRepository {
     public User createUser(User user){
         return dao.save(user);
     }
+
+    public User getUserForEmail(String email) {
+        return dao.findUserByEmail(email).orElseThrow(() -> new NoSuchElementException("No user with email: %s".formatted(email)));
+    }
 }

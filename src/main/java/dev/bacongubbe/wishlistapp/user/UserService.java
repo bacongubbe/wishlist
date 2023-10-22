@@ -15,6 +15,10 @@ public class UserService {
         return repo.getUser(id);
     }
 
+    public User getUserForEmail (String email) {
+        return repo.getUserForEmail(email);
+    }
+
     public User createUser(User user){
         return repo.createUser(user);
     }

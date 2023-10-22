@@ -1,5 +1,7 @@
 package dev.bacongubbe.wishlistapp.user;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -30,8 +32,14 @@ public class UserController {
         return ResponseEntity.created(URI.create(created.getId())).build();
     }
 
+    @GetMapping("{email}")
+    public ResponseEntity<User> getUserForEmail(
+        @PathVariable @Email @Valid String email) {
+        return ResponseEntity.ok(service.getUserForEmail(email));
+    }
+
     @ExceptionHandler(NoSuchElementException.class)
-    private ResponseEntity<Void> handleNoUser(){
+    private ResponseEntity<Void> handleNoUser() {
         return ResponseEntity.notFound().build();
     }
 
