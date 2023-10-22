@@ -48,20 +48,6 @@ public class SecurityConfig {
             .build();
     }
 
-//    @Bean
-//    CorsFilter corsFilter() {
-//        CorsConfiguration config = new CorsConfiguration();
-//        config.setAllowCredentials(true);
-//        config.addAllowedOrigin("*");
-//        config.addAllowedHeader("*");
-//        config.addAllowedMethod("*");
-//
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", config);
-//        return new CorsFilter(source);
-//    }
-
-
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -74,20 +60,20 @@ public class SecurityConfig {
         return source;
     }
 
-    @Bean
-    @Order(1)
-    public SecurityFilterChain swaggerFilterChain(HttpSecurity http) throws Exception {
-        return http
-            .securityMatchers(matchers -> matchers
-                .requestMatchers(
-                    antMatcher("/swagger-ui.html"),
-                    antMatcher("/swagger-ui/**"),
-                    antMatcher("/v3/api-docs/**"),
-                    antMatcher("/proxy/**")
-                )
-            )
-            .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
-            .build();
-    }
+//    @Bean
+//    @Order(1)
+//    public SecurityFilterChain swaggerFilterChain(HttpSecurity http) throws Exception {
+//        return http
+//            .securityMatchers(matchers -> matchers
+//                .requestMatchers(
+//                    antMatcher("/swagger-ui.html"),
+//                    antMatcher("/swagger-ui/**"),
+//                    antMatcher("/v3/api-docs/**"),
+//                    antMatcher("/proxy/**")
+//                )
+//            )
+//            .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+//            .build();
+//    }
 
 }

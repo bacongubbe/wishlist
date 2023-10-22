@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import java.util.Collections;
 import java.util.List;
@@ -29,6 +31,7 @@ public class Wishlist {
     private List<User> subscribers;
 
     @OneToMany(mappedBy = "wishlist")
+    @Cascade(value = CascadeType.ALL)
     private List<Wish> wishes;
 
     public Wishlist(String name, User owner) {
