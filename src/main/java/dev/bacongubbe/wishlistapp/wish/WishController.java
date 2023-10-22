@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.UUID;
@@ -40,5 +37,14 @@ public class WishController {
         var owner = userService.getUser(jwt.getSubject());
         var list = wishlistService.getWishlistForOwner(owner, dto.wishlistId());
         var created = wishService.addWish(new Wish(UUID.randomUUID().toString(), dto.wish(), dto.link(), null, list));
-        return ResponseEntity.created(URI.create("/api/wishes/%s".formatted(created.getId()))).body(new OwnerWishDto(created));    }
+        return ResponseEntity.created(URI.create("/api/wishes/%s".formatted(created.getId()))).body(new OwnerWishDto(created));
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteWish(@AuthenticationPrincipal Jwt jwt,
+                                           @PathVariable String id){
+        var owner = userService.getUser(jwt.getId());
+        wishService.deleteWish(id, owner);
+        return ResponseEntity.noContent().build();
+    }
 }
