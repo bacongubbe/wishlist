@@ -49,14 +49,29 @@ public class WishlistController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<WishlistSummaryDto> createNewWishlist(@AuthenticationPrincipal Jwt jwt, @RequestBody @Valid CreateWishlistDto dto) {
-        User owner = userService.getUser(jwt.getSubject());
+        var owner = userService.getUser(jwt.getSubject());
         var created = service.createWishlist(new Wishlist(dto.name(), owner));
         return ResponseEntity.created(URI.create("/api/wishlists/%s".formatted(created.getId()))).body(new WishlistSummaryDto(created));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteWishlist(@AuthenticationPrincipal Jwt jwt,
+                                               @PathVariable String id){
+        var owner = userService.getUser(jwt.getSubject());
+        service.deleteWishlist(id, owner);
+        return ResponseEntity.noContent().build();
+
+    }
+
     @ExceptionHandler(NoSuchElementException.class)
-    private ResponseEntity<Void> handleNoSuchElementException(NoSuchElementException e) {
-        LOGGER.error(e.getMessage(), e);
+    private ResponseEntity<Void> handleNoSuchElementException(NoSuchElementException ex) {
+        LOGGER.error(ex.getMessage(), ex);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).header("Location", "/login").build();
+    }
+
+    @ExceptionHandler(IllegalCallerException.class)
+    private ResponseEntity<Void> handleIllegalCallerException(IllegalCallerException ex){
+        LOGGER.error(ex.getMessage(), ex);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).header("Message", ex.getMessage()).build();
     }
 }

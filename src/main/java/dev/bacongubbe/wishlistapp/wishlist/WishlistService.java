@@ -5,6 +5,7 @@ import dev.bacongubbe.wishlistapp.wish.Wish;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class WishlistService {
@@ -25,5 +26,14 @@ public class WishlistService {
 
     public Wishlist getWishlistForOwner(User owner, String WishlistId) {
         return repo.getWishlistForOwner(owner, WishlistId);
+    }
+
+    public void deleteWishlist(String id, User owner) {
+        try {
+            var wishList = repo.getWishlistForOwner(owner, id);
+            repo.delete(wishList);
+        } catch (NoSuchElementException ex) {
+            throw new IllegalCallerException("You're not authorized to perform this operation");
+        }
     }
 }
