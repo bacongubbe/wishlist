@@ -40,10 +40,10 @@ public class WishController {
         return ResponseEntity.created(URI.create("/api/wishes/%s".formatted(created.getId()))).body(new OwnerWishDto(created));
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteWish(@AuthenticationPrincipal Jwt jwt,
                                            @PathVariable String id){
-        var owner = userService.getUser(jwt.getId());
+        var owner = userService.getUser(jwt.getSubject());
         wishService.deleteWish(id, owner);
         return ResponseEntity.noContent().build();
     }
