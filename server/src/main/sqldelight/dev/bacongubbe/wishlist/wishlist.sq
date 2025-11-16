@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS "user" (
+    id TEXT PRIMARY KEY DEFAULT (gen_random_uuid()),
+    email TEXT NOT NULL UNIQUE,
+    name TEXT NOT NULL
+);
+
+
+insertUser:
+INSERT INTO "user"(name, email)
+VALUES ( ?, ?);
+
+getAllUsers:
+SELECT * FROM "user";
