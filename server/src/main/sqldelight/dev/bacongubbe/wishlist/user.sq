@@ -11,3 +11,12 @@ VALUES ( ?, ?);
 
 getAllUsers:
 SELECT * FROM "user";
+
+findUserById:
+SELECT * FROM "user" WHERE id = ?;
+
+findUserByEmail:
+SELECT * FROM "user" WHERE email = ?;
+
+deeteUserById:
+DELETE FROM "user" WHERE id = ?;

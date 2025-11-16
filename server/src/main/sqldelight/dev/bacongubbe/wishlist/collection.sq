@@ -1,0 +1,26 @@
+CREATE TABLE IF NOT EXISTS collection(
+    id TEXT PRIMARY KEY DEFAULT (gen_random_uuid()),
+    name TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS collection_users(
+    collection_id TEXT NOT NULL REFERENCES collection(id) ON DELETE CASCADE,
+    user_id TEXT NOT NULL REFERENCES "user"(id) ON DELETE CASCADE,
+    PRIMARY KEY (collection_id, user_id)
+);
+
+insertCollection:
+INSERT INTO collection(name)
+VALUES (:name)
+RETURNING id;
+
+insertCollectionUserRelation:
+INSERT INTO collection_users(collection_id, user_id)
+VALUES (:collection_id, :user_id);
+
+selectCollectionsForUser:
+SELECT c.*
+FROM collection AS c
+JOIN collection_users AS cu
+  ON cu.collection_id = c.id
+WHERE cu.user_id = :user_id;
