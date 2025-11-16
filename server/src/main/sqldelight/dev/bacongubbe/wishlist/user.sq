@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS "user" (
+CREATE TABLE IF NOT EXISTS user_entity (
     id TEXT PRIMARY KEY DEFAULT (gen_random_uuid()),
     email TEXT NOT NULL UNIQUE,
     name TEXT NOT NULL
@@ -6,17 +6,17 @@ CREATE TABLE IF NOT EXISTS "user" (
 
 
 insertUser:
-INSERT INTO "user"(name, email)
+INSERT INTO user_entity(name, email)
 VALUES ( ?, ?);
 
 getAllUsers:
-SELECT * FROM "user";
+SELECT * FROM user_entity;
 
 findUserById:
-SELECT * FROM "user" WHERE id = ?;
+SELECT * FROM user_entity WHERE id = ?;
 
 findUserByEmail:
-SELECT * FROM "user" WHERE email = ?;
+SELECT * FROM user_entity WHERE email = ?;
 
 deeteUserById:
-DELETE FROM "user" WHERE id = ?;
+DELETE FROM user_entity WHERE id = ?;

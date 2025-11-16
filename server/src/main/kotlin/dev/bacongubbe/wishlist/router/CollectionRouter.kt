@@ -7,19 +7,29 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 fun Route.collectionRoutes(collectionService : CollectionService) {
-    post("/collections") {
-        val body = call.receive<CreateCollectionRequest>()
-        collectionService.createNewCollectionForUser(body.userId, body.name)
-        call.response.status(HttpStatusCode.Created)
-        call.respondText("Collection created")
-    }
-    get("/collections") {
-        val userId = call.queryParameters["user-id"] ?: return@get call.respondText(
-            "Missing userId",
-            status = HttpStatusCode.BadRequest
-        )
-        val collections = collectionService.getCollectionsForUser(userId)
-        call.respond(collections)
+    route("/collections") {
+        post {
+            val body = call.receive<CreateCollectionRequest>()
+            collectionService.createNewCollectionForUser(body.userId, body.name)
+            call.response.status(HttpStatusCode.Created)
+            call.respondText("Collection created")
+        }
+        get {
+            val userId = call.queryParameters["user_id"] ?: return@get call.respondText(
+                "Missing userId",
+                status = HttpStatusCode.BadRequest
+            )
+            val collections = collectionService.getCollectionsForUser(userId)
+            call.respond(collections)
+        }
+        get("/{id}"){
+            val id = call.parameters["id"] ?: return@get call.respondText(
+                "Missing id",
+                status = HttpStatusCode.BadRequest
+            )
+            val collections = collectionService.getCollectionById(id)
+            call.respond(collections)
+        }
     }
 }
 

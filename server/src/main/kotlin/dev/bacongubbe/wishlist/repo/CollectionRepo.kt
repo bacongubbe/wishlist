@@ -1,6 +1,7 @@
 package dev.bacongubbe.wishlist.repo
 
 import dev.bacongubbe.wishlist.WishlistDatabase
+import dev.bacongubbe.wishlist.model.domain.Collection
 
 class CollectionRepo(private val db: WishlistDatabase) {
 
@@ -14,4 +15,13 @@ class CollectionRepo(private val db: WishlistDatabase) {
     }
 
     fun getCollectionsForUser(userId: String) = collections.selectCollectionsForUser(userId).executeAsList()
+
+    fun getCollectionById(collectionId: String) : Collection {
+        return db.transactionWithResult {
+            val collection = collections.getCollectionById(collectionId).executeAsOne()
+            val wishlists = db.wishlistQueries.getListsForCollection(collectionId).executeAsList()
+            Collection(collection, wishlists)
+        }
+
+    }
 }

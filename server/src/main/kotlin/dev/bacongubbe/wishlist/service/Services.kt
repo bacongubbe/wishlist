@@ -5,4 +5,5 @@ import dev.bacongubbe.wishlist.repo.Repositories
 class Services(repos : Repositories) {
     val userService = UserService(repos.userRepository)
     val collectionService = CollectionService(repos.collectionRepository)
+    val wishlistService = WishlistService(repos.wishlistRepository)
 }

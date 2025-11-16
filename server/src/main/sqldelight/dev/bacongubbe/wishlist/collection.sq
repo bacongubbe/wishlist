@@ -1,16 +1,16 @@
-CREATE TABLE IF NOT EXISTS collection(
+CREATE TABLE IF NOT EXISTS collection_entity(
     id TEXT PRIMARY KEY DEFAULT (gen_random_uuid()),
     name TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS collection_users(
-    collection_id TEXT NOT NULL REFERENCES collection(id) ON DELETE CASCADE,
-    user_id TEXT NOT NULL REFERENCES "user"(id) ON DELETE CASCADE,
+    collection_id TEXT NOT NULL REFERENCES collection_entity(id) ON DELETE CASCADE,
+    user_id TEXT NOT NULL REFERENCES user_entity(id) ON DELETE CASCADE,
     PRIMARY KEY (collection_id, user_id)
 );
 
 insertCollection:
-INSERT INTO collection(name)
+INSERT INTO collection_entity(name)
 VALUES (:name)
 RETURNING id;
 
@@ -20,7 +20,11 @@ VALUES (:collection_id, :user_id);
 
 selectCollectionsForUser:
 SELECT c.*
-FROM collection AS c
+FROM collection_entity AS c
 JOIN collection_users AS cu
   ON cu.collection_id = c.id
 WHERE cu.user_id = :user_id;
+
+getCollectionById:
+SELECT * FROM collection_entity
+WHERE id = :collection_id;
