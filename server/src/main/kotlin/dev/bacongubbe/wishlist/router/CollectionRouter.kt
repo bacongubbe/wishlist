@@ -30,7 +30,18 @@ fun Route.collectionRoutes(collectionService : CollectionService) {
             val collections = collectionService.getCollectionById(id)
             call.respond(collections)
         }
+        post("/{id}/users") {
+            val collectionId = call.parameters["id"] ?: return@post call.respondText(
+                "Missing id",
+                status = HttpStatusCode.BadRequest
+            )
+            val body = call.receive<AddUserToCollectionRequest>()
+            collectionService.addUserToCollection(collectionId, body.userId)
+            call.response.status(HttpStatusCode.Created)
+            call.respondText("User added to collection")
+        }
     }
 }
 
 private data class CreateCollectionRequest(val name: String, val userId: String)
+private data class AddUserToCollectionRequest(val userId: String)

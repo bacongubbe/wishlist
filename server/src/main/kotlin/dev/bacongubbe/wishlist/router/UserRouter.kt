@@ -24,7 +24,6 @@ fun Route.userRoutes(userService : UserService){
             val users = userService.getUsers()
             call.respond(users)
         }
-
         delete("/{id}") { // TODO make this depend on auth token
             val id = call.parameters["id"] ?: return@delete call.respondText(
                 "Missing id",

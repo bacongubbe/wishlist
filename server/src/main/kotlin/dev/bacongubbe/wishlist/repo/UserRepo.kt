@@ -14,7 +14,7 @@ class UserRepo(db : WishlistDatabase) {
 
 
     suspend fun deleteUser(id: String) =
-        dbQuery { userQueries.deeteUserById(id) }
+        dbQuery { userQueries.deleteUserById(id) }
 
 
     suspend fun getUserById(id: String): User_entity = dbQuery { userQueries.findUserById(id).executeAsOne() }

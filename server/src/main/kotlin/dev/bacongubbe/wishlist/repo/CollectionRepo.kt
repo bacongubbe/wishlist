@@ -23,9 +23,26 @@ class CollectionRepo(private val db: WishlistDatabase) {
         return dbQuery {
                 db.transactionWithResult {
                 val collection = collections.getCollectionById(collectionId).executeAsOne()
+                val members = collections.getAllMembersForCollection(collection.id).executeAsList()
                 val wishlists = db.wishlistQueries.getListsForCollection(collectionId).executeAsList()
-                Collection(collection, wishlists)
+                Collection(collection, members, wishlists)
             }
         }
     }
+
+    suspend fun addUserToCollection(collectionId: String, userId: String) {
+        dbQuery {
+            collections.insertCollectionUserRelation(collectionId, userId)
+        }
+    }
+
+    suspend fun deleteCollectionsWhereUserIsSoleMember(userId: String) {
+        dbQuery {
+            collections.transaction {
+                val collectionIds = collections.getCollectionsWhereUserIsOnlyMember(userId).executeAsList()
+                collectionIds.takeIf { it.isNotEmpty() }?.let { collections.deleteCollectionsByIds(it)}
+            }
+        }
+    }
+
 }

@@ -28,3 +28,23 @@ WHERE cu.user_id = :user_id;
 getCollectionById:
 SELECT * FROM collection_entity
 WHERE id = :collection_id;
+
+getAllMembersForCollection:
+SELECT user_id FROM collection_users
+WHERE collection_id = :collection_id;
+
+getCollectionsWhereUserIsOnlyMember:
+SELECT c.id
+FROM collection_entity AS c
+LEFT JOIN collection_users AS cu
+  ON cu.collection_id = c.id
+GROUP BY c.id
+HAVING COUNT(*) = 1 AND MAX(cu.user_id) = :user_id;
+
+deleteCollectionById:
+DELETE FROM collection_entity
+WHERE id = :collection_id;
+
+deleteCollectionsByIds:
+DELETE FROM collection_entity
+WHERE id IN :collection_ids;

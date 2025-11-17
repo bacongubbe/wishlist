@@ -18,5 +18,5 @@ SELECT * FROM user_entity WHERE id = ?;
 findUserByEmail:
 SELECT * FROM user_entity WHERE email = ?;
 
-deeteUserById:
+deleteUserById:
 DELETE FROM user_entity WHERE id = ?;
