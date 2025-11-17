@@ -21,11 +21,14 @@ class WishlistRepo(db : WishlistDatabase) {
         }
 
 
-    suspend fun addWish(wishlistId : String, request: AddWishRequest) : Wish_entity =
+    suspend fun addWish(userId : String, wishlistId : String, request: AddWishRequest) : Wish_entity =
         dbQuery {
             wishlistQueries.transactionWithResult {
-                val result = wishlistQueries.insertWish(wishlistId, request.name, request.description, request.links).executeAsOne()
-                wishlistQueries.getWishById(result).executeAsOne()
+                val wishlist = wishlistQueries.getListById(wishlistId).executeAsOneOrNull()?.takeIf { it.owner_id == userId }?.let { wishlist ->
+                    val result = wishlistQueries.insertWish(wishlist.id, request.name, request.description, request.links).executeAsOne()
+                    wishlistQueries.getWishById(result).executeAsOne()
+                }
+                wishlist ?: throw NoSuchElementException("wishlist $wishlistId not found, or you are not it's owner")
             }
         }
 

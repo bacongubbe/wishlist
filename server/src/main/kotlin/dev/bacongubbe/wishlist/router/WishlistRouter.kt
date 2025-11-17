@@ -1,5 +1,6 @@
 package dev.bacongubbe.wishlist.router
 
+import dev.bacongubbe.wishlist.config.UserIdKey
 import dev.bacongubbe.wishlist.model.dto.AddWishRequest
 import dev.bacongubbe.wishlist.model.dto.AddWishlistRequest
 import dev.bacongubbe.wishlist.service.WishlistService
@@ -16,7 +17,7 @@ fun Route.wishlistRouter(service : WishlistService) {
     route("/wishlists") {
        post {
            val body = call.receive<AddWishlistRequest>()
-           val userId = call.request.queryParameters["user_id"]?: return@post call.response.status(HttpStatusCode.BadRequest)// todo: get from auth token
+           val userId = call.attributes[UserIdKey]
            val created = service.addNewWishlist(userId, body)
            call.response.status(HttpStatusCode.Created)
            call.respond(created)
@@ -26,8 +27,9 @@ fun Route.wishlistRouter(service : WishlistService) {
                 "Missing id",
                 status = HttpStatusCode.BadRequest
             )
+            val userId = call.attributes[UserIdKey]
             val body = call.receive<AddWishRequest>()
-            val created = service.addWishToWishlist(wishlistId, body)
+            val created = service.addWishToWishlist(userId, wishlistId, body)
             call.response.status(HttpStatusCode.Created)
             call.respond(created)
         }

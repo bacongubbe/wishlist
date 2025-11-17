@@ -11,7 +11,7 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.route
 
-
+// TODO remove this entire router when federated security is in place
 fun Route.userRoutes(userService : UserService){
     route("/users") {
         post { // TODO make this depend on auth token

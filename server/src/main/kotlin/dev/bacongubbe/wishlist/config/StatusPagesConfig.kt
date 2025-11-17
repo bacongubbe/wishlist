@@ -14,6 +14,14 @@ fun Application.installStatusPages() {
             call.respondText(text = "409: ${cause.message}" , status = HttpStatusCode.Conflict)
         }
 
+        exception<IllegalArgumentException> { call, cause ->
+            call.respondText(text = "400: ${cause.message}" , status = HttpStatusCode.BadRequest)
+        }
+
+        exception<NoSuchElementException> { call, cause ->
+            call.respondText(text = "404: ${cause.message}" , status = HttpStatusCode.NotFound)
+        }
+
         exception<Throwable> { call, cause ->
             call.respondText(text = "500: ${cause.message}" , status = HttpStatusCode.InternalServerError)
         }

@@ -12,8 +12,8 @@ class WishlistService(private val repo: WishlistRepo, private val userService: U
         return repo.createNewWishlist(userId, request.collectionId, request.name)
     }
 
-    suspend fun addWishToWishlist(wishlistId : String, request : AddWishRequest) =
-        repo.addWish(wishlistId, request)
+    suspend fun addWishToWishlist(userId : String, wishlistId : String, request : AddWishRequest) =
+        repo.addWish(userId, wishlistId, request)
 
     suspend fun getWishlistById(wishlistId: String) : WishlistResponseDto {
         val wishlist = repo.getWishlistById(wishlistId)
