@@ -24,6 +24,8 @@ dependencies {
     implementation("io.ktor:ktor-serialization-gson:3.3.2")
     implementation("io.ktor:ktor-server-content-negotiation:3.3.2")
     implementation("io.ktor:ktor-serialization-jackson:3.3.2")
+    implementation("io.ktor:ktor-server-host-common:3.3.2")
+    implementation("io.ktor:ktor-server-status-pages:3.3.2")
     testImplementation(libs.ktor.serverTestHost)
     testImplementation(libs.kotlin.testJunit)
     implementation("app.cash.sqldelight:jdbc-driver:2.2.1")

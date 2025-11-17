@@ -36,7 +36,14 @@ getWishById:
 SELECT * FROM wish_entity
 WHERE id = :wish_id;
 
-
 getWishesForWishlist:
 SELECT * FROM wish_entity
 WHERE wishlist_id = :wishlist_id;
+
+deleteWishlistById:
+DELETE FROM wishlist_entity
+WHERE id = :wishlist_id;
+
+deleteWishById:
+DELETE FROM wish_entity
+WHERE id = :wish_id;

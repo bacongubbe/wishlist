@@ -1,7 +1,7 @@
 package dev.bacongubbe.wishlist.service
 
 import dev.bacongubbe.wishlist.User_entity
-import dev.bacongubbe.wishlist.db.runConcurrently
+import dev.bacongubbe.wishlist.util.runConcurrently
 import dev.bacongubbe.wishlist.repo.CollectionRepo
 import dev.bacongubbe.wishlist.repo.UserRepo
 
