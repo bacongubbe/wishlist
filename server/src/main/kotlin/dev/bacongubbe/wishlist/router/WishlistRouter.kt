@@ -1,5 +1,6 @@
 package dev.bacongubbe.wishlist.router
 
+import dev.bacongubbe.wishlist.model.dto.AddWishRequest
 import dev.bacongubbe.wishlist.model.dto.AddWishlistRequest
 import dev.bacongubbe.wishlist.service.WishlistService
 import io.ktor.http.HttpStatusCode
@@ -25,7 +26,7 @@ fun Route.wishlistRouter(service : WishlistService) {
                 "Missing id",
                 status = HttpStatusCode.BadRequest
             )
-            val body = call.receive<dev.bacongubbe.wishlist.model.dto.AddWishRequest>()
+            val body = call.receive<AddWishRequest>()
             val created = service.addWishToWishlist(wishlistId, body)
             call.response.status(HttpStatusCode.Created)
             call.respond(created)

@@ -4,11 +4,11 @@ import dev.bacongubbe.wishlist.repo.CollectionRepo
 
 class CollectionService(private val repo : CollectionRepo) {
 
-    fun createNewCollectionForUser(userId: String, collectionName: String) =
+    suspend fun createNewCollectionForUser(userId: String, collectionName: String) =
         repo.createNewCollectionForUser(userId, collectionName)
 
-    fun getCollectionsForUser(userId: String) = repo.getCollectionsForUser(userId)
+    suspend fun getCollectionsForUser(userId: String) = repo.getCollectionsForUser(userId)
 
-    fun getCollectionById(collectionId: String) =
+    suspend fun getCollectionById(collectionId: String) =
         repo.getCollectionById(collectionId)
 }

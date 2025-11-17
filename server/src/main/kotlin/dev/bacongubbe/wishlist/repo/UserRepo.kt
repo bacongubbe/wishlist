@@ -2,19 +2,20 @@ package dev.bacongubbe.wishlist.repo
 
 import dev.bacongubbe.wishlist.User_entity
 import dev.bacongubbe.wishlist.WishlistDatabase
+import dev.bacongubbe.wishlist.db.dbQuery
 
 class UserRepo(db : WishlistDatabase) {
     private val userQueries = db.userQueries
 
-    fun getUsers(): List<User_entity> = userQueries.getAllUsers().executeAsList()
+    suspend fun getUsers(): List<User_entity> = dbQuery { userQueries.getAllUsers().executeAsList() }
 
-    fun addUser(name : String, email: String) {
-        userQueries.insertUser(name, email)
-    }
+    suspend fun addUser(name : String, email: String) =
+        dbQuery { userQueries.insertUser(name, email) }
 
-    fun deleteUser(id: String) {
-        userQueries.deeteUserById(id)
-    }
 
-    fun getUserById(id: String): User_entity = userQueries.findUserById(id).executeAsOne()
+    suspend fun deleteUser(id: String) =
+        dbQuery { userQueries.deeteUserById(id) }
+
+
+    suspend fun getUserById(id: String): User_entity = dbQuery { userQueries.findUserById(id).executeAsOne() }
 }
