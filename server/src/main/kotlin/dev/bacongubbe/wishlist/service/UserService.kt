@@ -11,4 +11,6 @@ class UserService(private val repo : UserRepo) {
 
     fun deleteUser(id: String) = repo.deleteUser(id)
 
+    fun getUserById(id: String): User_entity = repo.getUserById(id)
+
 }

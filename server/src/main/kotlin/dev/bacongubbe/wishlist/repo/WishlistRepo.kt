@@ -1,7 +1,11 @@
 package dev.bacongubbe.wishlist.repo
 
+import dev.bacongubbe.wishlist.Wish_entity
 import dev.bacongubbe.wishlist.WishlistDatabase
 import dev.bacongubbe.wishlist.Wishlist_entity
+import dev.bacongubbe.wishlist.model.domain.WishList
+import dev.bacongubbe.wishlist.model.domain.toDomain
+import dev.bacongubbe.wishlist.model.dto.AddWishRequest
 
 class WishlistRepo(db : WishlistDatabase) {
 
@@ -14,14 +18,21 @@ class WishlistRepo(db : WishlistDatabase) {
         }
     }
 
-    fun addWish(wishlistId: String, name : String, description : String?, links : String?) {
-        wishlistQueries.insertWish(wishlistId, name, description, links)
+    fun addWish(wishlistId : String, request: AddWishRequest) : Wish_entity {
+       return wishlistQueries.transactionWithResult {
+            val result = wishlistQueries.insertWish(wishlistId, request.name, request.description, request.links).executeAsOne()
+            wishlistQueries.getWishById(result).executeAsOne()
+        }
     }
 
-    fun getWishlistsForCollection(collectionId: String) =
-        wishlistQueries.getListsForCollection(collectionId).executeAsList()
 
-    fun getWishlistById (wishlistId: String) =
-        wishlistQueries.getWishlistandWishesByWishlistId(wishlistId).executeAsOneOrNull()
+
+    fun getWishlistById (wishlistId: String) : WishList {
+        return wishlistQueries.transactionWithResult {
+            val wishlist = wishlistQueries.getListById(wishlistId).executeAsOne()
+            val wishes = wishlistQueries.getWishesForWishlist(wishlistId).executeAsList()
+            WishList(wishlistId, wishlist.owner_id, wishlist.name, wishes.map { it.toDomain() })
+        }
+    }
 
 }

@@ -22,6 +22,5 @@ class CollectionRepo(private val db: WishlistDatabase) {
             val wishlists = db.wishlistQueries.getListsForCollection(collectionId).executeAsList()
             Collection(collection, wishlists)
         }
-
     }
 }

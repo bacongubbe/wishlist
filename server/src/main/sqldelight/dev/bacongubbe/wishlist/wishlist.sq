@@ -21,7 +21,8 @@ RETURNING id;
 
 insertWish:
 INSERT INTO wish_entity(wishlist_id, name, description, links)
-VALUES (:wishlist_id, :name, :description, :links);
+VALUES (:wishlist_id, :name, :description, :links)
+RETURNING id;
 
 getListsForCollection:
 SELECT * FROM wishlist_entity
@@ -31,8 +32,11 @@ getListById:
 SELECT * FROM wishlist_entity
 WHERE id = :wishlist_id;
 
-getWishlistandWishesByWishlistId:
-SELECT * FROM wishlist_entity AS wl
-LEFT JOIN wish_entity AS w
-ON wl.id = w.wishlist_id
-WHERE wl.id = :wishlist_id;
+getWishById:
+SELECT * FROM wish_entity
+WHERE id = :wish_id;
+
+
+getWishesForWishlist:
+SELECT * FROM wish_entity
+WHERE wishlist_id = :wishlist_id;

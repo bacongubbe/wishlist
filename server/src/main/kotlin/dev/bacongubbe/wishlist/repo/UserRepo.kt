@@ -15,4 +15,6 @@ class UserRepo(db : WishlistDatabase) {
     fun deleteUser(id: String) {
         userQueries.deeteUserById(id)
     }
+
+    fun getUserById(id: String): User_entity = userQueries.findUserById(id).executeAsOne()
 }
