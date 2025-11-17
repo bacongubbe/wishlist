@@ -1,6 +1,7 @@
 package dev.bacongubbe.wishlist
 
 import com.fasterxml.jackson.databind.SerializationFeature
+import dev.bacongubbe.wishlist.config.UserIdHeaderInterceptorPlugin
 import dev.bacongubbe.wishlist.config.installStatusPages
 import dev.bacongubbe.wishlist.db.DatabaseProvider
 import dev.bacongubbe.wishlist.repo.Repositories
@@ -27,6 +28,7 @@ fun Application.module() {
              enable(SerializationFeature.INDENT_OUTPUT)
         }
     }
+    install(UserIdHeaderInterceptorPlugin)
 
     DatabaseProvider.init(environment.config)
     val repos = Repositories(DatabaseProvider.db)

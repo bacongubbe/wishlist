@@ -1,5 +1,6 @@
 package dev.bacongubbe.wishlist.router
 
+import dev.bacongubbe.wishlist.config.UserIdKey
 import dev.bacongubbe.wishlist.service.CollectionService
 import io.ktor.http.*
 import io.ktor.server.request.*
@@ -15,10 +16,7 @@ fun Route.collectionRoutes(collectionService : CollectionService) {
             call.respondText("Collection created")
         }
         get {
-            val userId = call.queryParameters["user_id"] ?: return@get call.respondText(
-                "Missing userId",
-                status = HttpStatusCode.BadRequest
-            )
+            val userId = call.attributes[UserIdKey]
             val collections = collectionService.getCollectionsForUser(userId)
             call.respond(collections)
         }

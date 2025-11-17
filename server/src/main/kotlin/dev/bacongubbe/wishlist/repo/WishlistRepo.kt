@@ -29,8 +29,6 @@ class WishlistRepo(db : WishlistDatabase) {
             }
         }
 
-
-
     suspend fun getWishlistById (wishlistId: String) : WishList =
         dbQuery {
          wishlistQueries.transactionWithResult {
