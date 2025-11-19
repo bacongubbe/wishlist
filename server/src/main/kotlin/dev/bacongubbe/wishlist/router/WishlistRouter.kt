@@ -9,6 +9,7 @@ import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.Route
+import io.ktor.server.routing.delete
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.route
@@ -22,17 +23,6 @@ fun Route.wishlistRouter(service : WishlistService) {
            call.response.status(HttpStatusCode.Created)
            call.respond(created)
        }
-        post("/{id}/wishes") {
-            val wishlistId = call.parameters["id"] ?: return@post call.respondText(
-                "Missing id",
-                status = HttpStatusCode.BadRequest
-            )
-            val userId = call.attributes[UserIdKey]
-            val body = call.receive<AddWishRequest>()
-            val created = service.addWishToWishlist(userId, wishlistId, body)
-            call.response.status(HttpStatusCode.Created)
-            call.respond(created)
-        }
 
         get("/{id}"){
             val id = call.parameters["id"] ?: return@get call.respondText(

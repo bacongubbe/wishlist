@@ -7,6 +7,7 @@ import dev.bacongubbe.wishlist.db.DatabaseProvider
 import dev.bacongubbe.wishlist.repo.Repositories
 import dev.bacongubbe.wishlist.router.collectionRoutes
 import dev.bacongubbe.wishlist.router.userRoutes
+import dev.bacongubbe.wishlist.router.wishRouter
 import dev.bacongubbe.wishlist.router.wishlistRouter
 import dev.bacongubbe.wishlist.service.Services
 import io.ktor.http.HttpStatusCode
@@ -41,5 +42,6 @@ fun Application.module() {
         userRoutes(services.userService)
         collectionRoutes(services.collectionService)
         wishlistRouter(services.wishlistService)
+        wishRouter(services.wishService)
     }
 }

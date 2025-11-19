@@ -1,0 +1,35 @@
+CREATE TABLE IF NOT EXISTS wish_entity(
+    id TEXT PRIMARY KEY DEFAULT (gen_random_uuid()),
+    wishlist_id TEXT NOT NULL REFERENCES wishlist_entity(id) ON DELETE CASCADE,
+    name TEXT NOT NULL,
+    description TEXT,
+    links TEXT,
+    purchased_by TEXT REFERENCES user_entity(id) ON DELETE SET NULL
+);
+
+insertWish:
+INSERT INTO wish_entity(wishlist_id, name, description, links)
+VALUES (:wishlist_id, :name, :description, :links)
+RETURNING id;
+
+getWishById:
+SELECT * FROM wish_entity
+WHERE id = :wish_id;
+
+getWishesForWishlist:
+SELECT * FROM wish_entity
+WHERE wishlist_id = :wishlist_id;
+
+deleteWishById:
+DELETE FROM wish_entity
+WHERE id = :wish_id;
+
+deleteWishByIdAndOwner:
+DELETE FROM wish_entity
+WHERE id = :wishId
+  AND wishlist_id = (
+      SELECT id
+      FROM wishlist_entity
+      WHERE id = wish_entity.wishlist_id
+        AND owner_id = :userId
+  );
