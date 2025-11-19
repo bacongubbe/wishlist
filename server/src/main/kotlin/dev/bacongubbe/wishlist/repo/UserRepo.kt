@@ -23,4 +23,9 @@ class UserRepo(db: WishlistDatabase) {
 
 
     suspend fun getUserById(id: String): User_entity = dbQuery { userQueries.findUserById(id).executeAsOne() }
+
+    suspend fun getUsersByIds(ids: List<String>): List<User_entity> =
+        dbQuery {
+            userQueries.getUsersByIds(ids).executeAsList()
+        }
 }

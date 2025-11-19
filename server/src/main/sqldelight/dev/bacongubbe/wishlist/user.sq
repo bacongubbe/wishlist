@@ -20,3 +20,6 @@ SELECT * FROM user_entity WHERE email = ?;
 
 deleteUserById:
 DELETE FROM user_entity WHERE id = ?;
+
+getUsersByIds:
+SELECT * FROM user_entity WHERE id IN ?;

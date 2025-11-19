@@ -20,4 +20,7 @@ class UserService(private val repo : UserRepo, private val collectionRepo : Coll
 
     suspend fun getUserById(id: String): User_entity = repo.getUserById(id)
 
+    suspend fun getUsersByIds(ids : List<String>) : List<User_entity> =
+        repo.getUsersByIds(ids)
+
 }

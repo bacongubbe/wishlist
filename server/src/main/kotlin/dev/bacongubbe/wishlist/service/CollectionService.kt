@@ -12,7 +12,7 @@ class CollectionService(private val repo : CollectionRepo, private val userServi
 
     suspend fun getCollectionById(collectionId: String) =
         repo.getCollectionById(collectionId).let { collection ->
-            val members = collection.membersIds.map { userService.getUserById(it) }
+            val members = userService.getUsersByIds(collection.membersIds)
             CollectionResponseDto(collection, members)
         }
 
