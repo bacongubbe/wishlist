@@ -17,11 +17,12 @@ class CollectionRepo(private val db: WishlistDatabase) {
         }
     }
 
-    suspend fun getCollectionsForUser(userId: String) = dbQuery { collections.selectCollectionsForUser(userId).executeAsList() }
+    suspend fun getCollectionsForUser(userId: String) =
+        dbQuery { collections.selectCollectionsForUser(userId).executeAsList() }
 
-    suspend fun getCollectionById(collectionId: String) : Collection {
+    suspend fun getCollectionById(collectionId: String): Collection {
         return dbQuery {
-                db.transactionWithResult {
+            db.transactionWithResult {
                 val collection = collections.getCollectionById(collectionId).executeAsOne()
                 val members = collections.getAllMembersForCollection(collection.id).executeAsList()
                 val wishlists = db.wishlistQueries.getListsForCollection(collectionId).executeAsList()
@@ -40,7 +41,7 @@ class CollectionRepo(private val db: WishlistDatabase) {
         dbQuery {
             collections.transaction {
                 val collectionIds = collections.getCollectionsWhereUserIsOnlyMember(userId).executeAsList()
-                collectionIds.takeIf { it.isNotEmpty() }?.let { collections.deleteCollectionsByIds(it)}
+                collectionIds.takeIf { it.isNotEmpty() }?.let { collections.deleteCollectionsByIds(it) }
             }
         }
     }

@@ -8,12 +8,12 @@ data class WishlistResponseDto(
     val id: String,
     val owner: User_entity,
     val name: String,
-    val wishes: List<Wish>
+    val wishes: List<WishResponseDto>
 ) {
- constructor(wishList: WishList, userEntity: User_entity) : this(
+    constructor(wishList: WishList, userEntity: User_entity, wishes : List<WishResponseDto>) : this(
         id = wishList.id,
         owner = userEntity,
         name = wishList.name,
-        wishes = wishList.wishes
- )
+        wishes = wishes
+    )
 }

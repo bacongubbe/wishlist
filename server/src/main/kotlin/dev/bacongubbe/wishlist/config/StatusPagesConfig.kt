@@ -1,29 +1,28 @@
 package dev.bacongubbe.wishlist.config
 
 import dev.bacongubbe.wishlist.exception.UserAlreadyExistException
-import io.ktor.http.HttpStatusCode
-import io.ktor.server.application.Application
-import io.ktor.server.application.install
-import io.ktor.server.plugins.statuspages.StatusPages
-import io.ktor.server.response.respondText
+import io.ktor.http.*
+import io.ktor.server.application.*
+import io.ktor.server.plugins.statuspages.*
+import io.ktor.server.response.*
 
 fun Application.installStatusPages() {
     install(StatusPages) {
 
         exception<UserAlreadyExistException> { call, cause ->
-            call.respondText(text = "409: ${cause.message}" , status = HttpStatusCode.Conflict)
+            call.respondText(text = "409: ${cause.message}", status = HttpStatusCode.Conflict)
         }
 
         exception<IllegalArgumentException> { call, cause ->
-            call.respondText(text = "400: ${cause.message}" , status = HttpStatusCode.BadRequest)
+            call.respondText(text = "400: ${cause.message}", status = HttpStatusCode.BadRequest)
         }
 
         exception<NoSuchElementException> { call, cause ->
-            call.respondText(text = "404: ${cause.message}" , status = HttpStatusCode.NotFound)
+            call.respondText(text = "404: ${cause.message}", status = HttpStatusCode.NotFound)
         }
 
         exception<Throwable> { call, cause ->
-            call.respondText(text = "500: ${cause.message}" , status = HttpStatusCode.InternalServerError)
+            call.respondText(text = "500: ${cause.message}", status = HttpStatusCode.InternalServerError)
         }
     }
 }

@@ -1,18 +1,13 @@
 package dev.bacongubbe.wishlist.router
 
 import dev.bacongubbe.wishlist.service.UserService
-import io.ktor.http.HttpStatusCode
-import io.ktor.server.request.receive
-import io.ktor.server.response.respond
-import io.ktor.server.response.respondText
-import io.ktor.server.routing.Route
-import io.ktor.server.routing.delete
-import io.ktor.server.routing.get
-import io.ktor.server.routing.post
-import io.ktor.server.routing.route
+import io.ktor.http.*
+import io.ktor.server.request.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
 
 // TODO remove this entire router when federated security is in place
-fun Route.userRoutes(userService : UserService){
+fun Route.userRoutes(userService: UserService) {
     route("/users") {
         post { // TODO make this depend on auth token
             val body = call.receive<UserCreateRequest>();

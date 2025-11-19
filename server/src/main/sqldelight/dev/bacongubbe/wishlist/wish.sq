@@ -20,6 +20,17 @@ getWishesForWishlist:
 SELECT * FROM wish_entity
 WHERE wishlist_id = :wishlist_id;
 
+markWishAsPurchased:
+UPDATE wish_entity
+SET purchased_by = :purchased_by
+WHERE id = :wish_id
+AND wishlist_id = (
+      SELECT id
+      FROM wishlist_entity
+      WHERE id = wish_entity.wishlist_id
+        AND owner_id != :purchased_by
+  );
+
 deleteWishById:
 DELETE FROM wish_entity
 WHERE id = :wish_id;
@@ -33,3 +44,4 @@ WHERE id = :wishId
       WHERE id = wish_entity.wishlist_id
         AND owner_id = :userId
   );
+

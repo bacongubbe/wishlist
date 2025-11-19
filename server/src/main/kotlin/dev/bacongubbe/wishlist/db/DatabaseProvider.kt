@@ -4,7 +4,7 @@ import app.cash.sqldelight.driver.jdbc.asJdbcDriver
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import dev.bacongubbe.wishlist.WishlistDatabase
-import io.ktor.server.config.ApplicationConfig
+import io.ktor.server.config.*
 
 object DatabaseProvider {
     private lateinit var _db: WishlistDatabase

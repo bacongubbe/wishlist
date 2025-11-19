@@ -3,7 +3,7 @@ package dev.bacongubbe.wishlist.service
 import dev.bacongubbe.wishlist.model.dto.CollectionResponseDto
 import dev.bacongubbe.wishlist.repo.CollectionRepo
 
-class CollectionService(private val repo : CollectionRepo, private val userService: UserService) {
+class CollectionService(private val repo: CollectionRepo, private val userService: UserService) {
 
     suspend fun createNewCollectionForUser(userId: String, collectionName: String) =
         repo.createNewCollectionForUser(userId, collectionName)

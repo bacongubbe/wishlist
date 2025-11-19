@@ -7,7 +7,7 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
-fun Route.collectionRoutes(collectionService : CollectionService) {
+fun Route.collectionRoutes(collectionService: CollectionService) {
     route("/collections") {
         post {
             val body = call.receive<CreateCollectionRequest>()
@@ -20,7 +20,7 @@ fun Route.collectionRoutes(collectionService : CollectionService) {
             val collections = collectionService.getCollectionsForUser(userId)
             call.respond(collections)
         }
-        get("/{id}"){
+        get("/{id}") {
             val id = call.parameters["id"] ?: return@get call.respondText(
                 "Missing id",
                 status = HttpStatusCode.BadRequest

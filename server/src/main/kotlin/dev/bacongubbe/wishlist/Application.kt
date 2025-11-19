@@ -10,12 +10,10 @@ import dev.bacongubbe.wishlist.router.userRoutes
 import dev.bacongubbe.wishlist.router.wishRouter
 import dev.bacongubbe.wishlist.router.wishlistRouter
 import dev.bacongubbe.wishlist.service.Services
-import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.jackson.*
 import io.ktor.server.application.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.*
-import io.ktor.server.plugins.statuspages.StatusPages
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
@@ -26,7 +24,7 @@ fun Application.module() {
     installStatusPages()
     install(ContentNegotiation) {
         jackson {
-             enable(SerializationFeature.INDENT_OUTPUT)
+            enable(SerializationFeature.INDENT_OUTPUT)
         }
     }
     install(UserIdHeaderInterceptorPlugin)
