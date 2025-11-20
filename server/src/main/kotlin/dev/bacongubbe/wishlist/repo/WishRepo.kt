@@ -3,7 +3,9 @@ package dev.bacongubbe.wishlist.repo
 import dev.bacongubbe.wishlist.Wish_entity
 import dev.bacongubbe.wishlist.WishlistDatabase
 import dev.bacongubbe.wishlist.db.dbQuery
+import dev.bacongubbe.wishlist.exception.AlreadyPurchasedException
 import dev.bacongubbe.wishlist.model.dto.AddWishRequest
+import kotlin.IllegalArgumentException
 
 class WishRepo(db: WishlistDatabase) {
 
@@ -27,7 +29,14 @@ class WishRepo(db: WishlistDatabase) {
 
     suspend fun markWishAsPurchased(userId: String, wishId: String) =
         dbQuery {
-            wishQueries.markWishAsPurchased(userId, wishId)
+            val wish = wishlistQueries.getListByAndPurchasedByWishId(wishId).executeAsOne()
+            if (wish.owner_id == userId) {
+                throw IllegalArgumentException("You cannot mark your own wishes as purchased")
+            }
+            if (wish.purchased_by != null) {
+                throw AlreadyPurchasedException()
+            }
+            wishQueries.markWishAsPurchased(userId, wishId) // TODO refactor, need to conflict check
         }
 
     suspend fun deleteWish(userId: String, wishId: String) =

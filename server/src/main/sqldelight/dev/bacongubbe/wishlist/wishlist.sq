@@ -20,6 +20,11 @@ getListById:
 SELECT * FROM wishlist_entity
 WHERE id = :wishlist_id;
 
+getListByAndPurchasedByWishId:
+SELECT we.*, w.purchased_by FROM wishlist_entity we
+JOIN wish_entity w ON we.id = w.wishlist_id
+WHERE w.id = :wish_id;
+
 getListByIdAndOwner:
 SELECT * FROM wishlist_entity
 WHERE id = :wishlist_id AND owner_id = :owner_id;

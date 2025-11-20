@@ -1,5 +1,6 @@
 package dev.bacongubbe.wishlist.config
 
+import dev.bacongubbe.wishlist.exception.AlreadyPurchasedException
 import dev.bacongubbe.wishlist.exception.UserAlreadyExistException
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -10,6 +11,10 @@ fun Application.installStatusPages() {
     install(StatusPages) {
 
         exception<UserAlreadyExistException> { call, cause ->
+            call.respondText(text = "409: ${cause.message}", status = HttpStatusCode.Conflict)
+        }
+
+        exception<AlreadyPurchasedException> { call, cause ->
             call.respondText(text = "409: ${cause.message}", status = HttpStatusCode.Conflict)
         }
 
